@@ -29,7 +29,7 @@ app.post("/sponsor", (req, res) => {
   if(!email){
     return res.status(400).json("Entrer une adresse mail")
   }
-  
+
   const mailOptions = {
     from: email,
     bcc: "kenouyakevin@gmail.com",
@@ -49,8 +49,7 @@ Ces informations ont été soumises par ${name} ${surname}.
 
 Si vous avez des questions ou avez besoin de plus d'informations, vous pouvez contacter l'émetteur à l'adresse email ${email} ou au numéro de téléphone ${number}.
 
-Cordialement,
-[Votre Nom]`,
+Cordialement,`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

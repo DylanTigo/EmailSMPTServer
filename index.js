@@ -12,7 +12,7 @@ app.use(cors());
 const transporter = nodemailer.createTransport({
   host: "smtpout.secureserver.net",
   port: 587,
-  secure: true,
+  secure: false,
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD,

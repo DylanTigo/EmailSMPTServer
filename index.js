@@ -30,7 +30,7 @@ app.post("/sponsor", (req, res) => {
   const { name, surname, email, number, company } = req.body;
 
   if (!email) {
-    return res.status(400).json("Entrer une adresse mail");
+    return res.status(400).json("Entrez une adresse mail");
   }
 
   const mailOptions = {

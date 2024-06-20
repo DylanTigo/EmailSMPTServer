@@ -1,7 +1,7 @@
-const express = require('express');
+const express = require("express");
 const nodemailer = require("nodemailer");
-const dotenv = require("dotenv").config()
-const cors = require("cors")
+const dotenv = require("dotenv").config();
+const cors = require("cors");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -10,20 +10,20 @@ app.use(express.json());
 app.use(cors());
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com', 
+  host: "smtp.gmail.com",
   port: 587,
   secure: false,
   auth: {
     user: process.env.EMAIL, // Remplacez par votre utilisateur SMTP
-    pass: process.env.PASSWORD // Remplacez par votre mot de passe SMTP
-  }
+    pass: process.env.PASSWORD, // Remplacez par votre mot de passe SMTP
+  },
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
-app.post('/sponsor', (req, res) => {
+app.post("/sponsor", (req, res) => {
   const { name, surname, email, number, company } = req.body;
 
   const mailOptions = {
@@ -45,23 +45,23 @@ Ces informations ont été soumises par ${name} ${surname}.
 Si vous avez des questions ou avez besoin de plus d'informations, vous pouvez contacter l'émetteur à l'adresse email ${email} ou au numéro de téléphone ${number}.
 
 Cordialement,
-[Votre Nom]`
+[Votre Nom]`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       return res.status(500).send(error.toString());
     }
-    res.status(200).send('Email envoyé: ' + info.response);
+    res.status(200).send("Email envoyé: " + info.response);
   });
 });
 
-app.post('/partnership', (req, res) => {
+app.post("/partnership", (req, res) => {
   const { name, surname, dateNais, email, number, company, whyUs } = req.body;
 
   const mailOptions = {
-    from: email, // Utiliser l'adresse email renseignée dans le formulaire
-    to: 'contact@cjd-asso.com',
+    from: email, 
+    to: process.env.EMAIL,
     subject: `Devenir Partenaire par ${name} ${surname}`,
     text: `Bonjour CJD,
 
@@ -80,14 +80,14 @@ Ces informations ont été soumises par ${name} ${surname}.
 Si vous avez des questions ou avez besoin de plus d'informations, vous pouvez contacter l'émetteur à l'adresse email ${email} ou au numéro de téléphone ${number}.
 
 Cordialement,
-[Votre Nom]`
+[Votre Nom]`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       return res.status(500).send(error.toString());
     }
-    res.status(200).send('Email envoyé: ' + info.response);
+    res.status(200).send("Email envoyé: " + info.response);
   });
 });
 

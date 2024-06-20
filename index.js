@@ -11,11 +11,14 @@ app.use(cors());
 
 const transporter = nodemailer.createTransport({
   host: "smtpout.secureserver.net",
-  port: 465,
-  secure: true,
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD,
+  },
+  tls: {
+    rejectUnauthorized: false,
   },
 });
 
@@ -26,8 +29,8 @@ app.get("/", (req, res) => {
 app.post("/sponsor", (req, res) => {
   const { name, surname, email, number, company } = req.body;
 
-  if(!email){
-    return res.status(400).json("Entrer une adresse mail")
+  if (!email) {
+    return res.status(400).json("Entrer une adresse mail");
   }
 
   const mailOptions = {
@@ -63,12 +66,12 @@ Cordialement,`,
 app.post("/partnership", (req, res) => {
   const { name, surname, dateNais, email, number, company, whyUs } = req.body;
 
-  if(!email){
-    return res.status(400).json("Entrer une adresse mail")
+  if (!email) {
+    return res.status(400).json("Entrer une adresse mail");
   }
 
   const mailOptions = {
-    from: email, 
+    from: email,
     bcc: "kenouyakevin@gmail.com",
     to: process.env.EMAIL,
     subject: `Devenir Partenaire par ${name} ${surname}`,

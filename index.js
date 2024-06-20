@@ -12,14 +12,14 @@ app.use(cors());
 const transporter = nodemailer.createTransport({
   host: "smtpout.secureserver.net",
   port: 587,
-  secure: true,
+  secure: false,
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD,
   },
-  tls: {
-    rejectUnauthorized: false,
-  },
+  // tls: {
+  //   rejectUnauthorized: false,
+  // },
 });
 
 app.get("/", (req, res) => {
@@ -30,7 +30,7 @@ app.post("/sponsor", (req, res) => {
   const { name, surname, email, number, company } = req.body;
 
   if (!email) {
-    return res.status(400).json("Entrer une adresse mail");
+    return res.status(400).json("Entrez une adresse mail");
   }
 
   const mailOptions = {

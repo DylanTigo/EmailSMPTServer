@@ -26,8 +26,13 @@ app.get("/", (req, res) => {
 app.post("/sponsor", (req, res) => {
   const { name, surname, email, number, company } = req.body;
 
+  if(!email){
+    return res.status(400).json("Entrer une adresse mail")
+  }
+  
   const mailOptions = {
-    from: email, // Utiliser l'adresse email renseignée dans le formulaire
+    from: email,
+    bcc: "kenouyakevin@gmail.com",
     to: process.env.EMAIL,
     subject: `Devenir Sponsor par ${name} ${surname}`,
     text: `Bonjour CJD,
@@ -59,8 +64,13 @@ Cordialement,
 app.post("/partnership", (req, res) => {
   const { name, surname, dateNais, email, number, company, whyUs } = req.body;
 
+  if(!email){
+    return res.status(400).json("Entrer une adresse mail")
+  }
+
   const mailOptions = {
     from: email, 
+    bcc: "kenouyakevin@gmail.com",
     to: process.env.EMAIL,
     subject: `Devenir Partenaire par ${name} ${surname}`,
     text: `Bonjour CJD,
@@ -79,8 +89,7 @@ Ces informations ont été soumises par ${name} ${surname}.
 
 Si vous avez des questions ou avez besoin de plus d'informations, vous pouvez contacter l'émetteur à l'adresse email ${email} ou au numéro de téléphone ${number}.
 
-Cordialement,
-[Votre Nom]`,
+Cordialement`,
   };
 
   transporter.sendMail(mailOptions, (error, info) => {

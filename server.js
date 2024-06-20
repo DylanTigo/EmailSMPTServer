@@ -19,6 +19,10 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
 app.post('/sponsor', (req, res) => {
   const { name, surname, email, number, company } = req.body;
 

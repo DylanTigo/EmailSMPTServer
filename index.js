@@ -12,7 +12,7 @@ app.use(cors());
 const transporter = nodemailer.createTransport({
   host: "smtpout.secureserver.net",
   port: 465,
-  secure: false,
+  secure: true,
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD,
@@ -20,7 +20,7 @@ const transporter = nodemailer.createTransport({
 });
 
 app.get("/", (req, res) => {
-  res.send(`Hello World! ${process.env.PASSWORD}`);
+  res.send(`Hello World!`);
 });
 
 app.post("/sponsor", (req, res) => {
